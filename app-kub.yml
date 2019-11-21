@@ -1,0 +1,41 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loans-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loans-service
+  template:
+    metadata:
+      labels:
+        app: loans-service
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+        - name: loans-service
+          image: docker.io/chenjigaramnaveen/loan-service:latest
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          ports:
+            - containerPort: 1994
+              name: loan-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loans-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 1994
+  selector:
+    app: loans-service
