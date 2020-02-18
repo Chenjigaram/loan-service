@@ -40,4 +40,4 @@ stages:
         Dockerfile: '**/Dockerfile'
         tags: |
           $(tag)
-          'latest'
+          latest
