@@ -38,4 +38,4 @@ stages:
         repository: 'chenjigaramnaveen/loanservice'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
-        tags: $(tag)
+        tags: $(tag) latest
