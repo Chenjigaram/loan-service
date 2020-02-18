@@ -52,8 +52,8 @@ stages:
 - stage: deploy
   displayName: Deploy to  K8
   jobs:  
-  - job: Build
-    displayName: Build
+  - job: Deploy
+    displayName: deploy
     pool:
       vmImage: 'ubuntu-latest'
     steps:
