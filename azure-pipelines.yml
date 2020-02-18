@@ -49,3 +49,19 @@ stages:
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+- stage: deploy
+  displayName: Deploy to  K8
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Kubernetes@0
+      displayName: 'kubectl apply'
+      inputs:
+        kubernetesServiceConnection: kubetest
+        command: apply
+        useConfigurationFile: true
+        configuration: '$(System.DefaultWorkingDirectory)/_loan-service/drop/app-kub.yml'
+        azureSubscription: 'Free Trial (52ae6779-94f9-4cb9-b9de-cb474dca4812)'
